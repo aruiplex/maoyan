@@ -169,6 +169,7 @@ class Film:
     char_to_num = CharToNum()
 
     def __init__(self, html: str):
+        # self.top = 
         soup = bs4.BeautifulSoup(html, "html.parser")
         self.get_font(html)
 
