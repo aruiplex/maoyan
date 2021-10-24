@@ -18,15 +18,21 @@ with open("./top100_list_name") as fd:
 
 
 def add_ranking():
+    d = {x["name_zh"]: x for x in movies}
     for index, name in enumerate(ranking):
-        for m in movies:
-            if m["name_zh"] == name:
-                m["ranking"] = index 
-                break
+        try:
+            d[name]["ranking"] = index
+        except KeyError as e:
+            print(f"{e} did not apparent in the movies details.")
 
-add_ranking()
+    return d
+
+
+movies_dict = add_ranking()
+
 
 df = pd.DataFrame(movies)
+# df.reset_index("name_zh") # reset the index from integer to name_zh
 
 with open("MaoYanTop100.csv", "w") as fd:
     fd.write(df.to_csv())
